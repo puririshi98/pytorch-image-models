@@ -423,7 +423,7 @@ class EfficientNet(nn.Module):
             stem_size = round_chs_fn(stem_size)
         self.conv_stem = create_conv2d(in_chans, stem_size, 3, stride=2, padding=pad_type)
         self.bn1 = norm_layer(stem_size)
-        self.act1 = act_layer(inplace=True)
+        self.act1 = act_layer(inplace=False)
 
         # Middle stages (IR/ER/DS Blocks)
         builder = EfficientNetBuilder(
@@ -436,7 +436,7 @@ class EfficientNet(nn.Module):
         # Head + Pooling
         self.conv_head = create_conv2d(head_chs, self.num_features, 1, padding=pad_type)
         self.bn2 = norm_layer(self.num_features)
-        self.act2 = act_layer(inplace=True)
+        self.act2 = act_layer(inplace=False)
         self.global_pool, self.classifier = create_classifier(
             self.num_features, self.num_classes, pool_type=global_pool)
 
@@ -496,7 +496,7 @@ class EfficientNetFeatures(nn.Module):
             stem_size = round_chs_fn(stem_size)
         self.conv_stem = create_conv2d(in_chans, stem_size, 3, stride=2, padding=pad_type)
         self.bn1 = norm_layer(stem_size)
-        self.act1 = act_layer(inplace=True)
+        self.act1 = act_layer(inplace=False)
 
         # Middle stages (IR/ER/DS Blocks)
         builder = EfficientNetBuilder(
